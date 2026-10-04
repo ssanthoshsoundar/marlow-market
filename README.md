@@ -1,16 +1,30 @@
-# React + Vite
+# Santhosh S: Dynamic Portfolio Website
 
-This template provides a minimal setup to get React working in Vite with HMR and some ESLint rules.
+HTML + CSS + JavaScript front end, **PHP** server side, **MySQL** database.
 
-Currently, two official plugins are available:
+## Features
+- 8 pages (Home, About, Academics, Projects, Skills, Achievements, Internships, Contact), all content rendered from MySQL
+- Contact form: JS validation, AJAX submit, server validation, CSRF token, honeypot, rate limit, stored in `messages`
+- Admin panel (`/admin`): login (hashed password, session, lockout), dashboard, inbox (read/unread/delete/search), add/edit/delete for projects, skills, achievements, education and internships
+- JS extras: dark/light theme, project filter + search, animated skill bars, count-up stats, mobile nav
+- Security: prepared statements everywhere, output escaping, CSRF protection, `password_verify`
 
-- [@vitejs/plugin-react](https://github.com/vitejs/vite-plugin-react/blob/main/packages/plugin-react) uses [Oxc](https://oxc.rs)
-- [@vitejs/plugin-react-swc](https://github.com/vitejs/vite-plugin-react/blob/main/packages/plugin-react-swc) uses [SWC](https://swc.rs/)
+## Setup (XAMPP / WAMP / LAMP)
+1. Copy this folder to `htdocs/portfolio` (e.g. `C:\xampp\htdocs\portfolio`).
+2. Start **Apache** and **MySQL**.
+3. Open phpMyAdmin → *Import* → choose `sql/schema.sql` (creates DB `portfolio`, tables and sample data).
+4. If your MySQL user/password differ from root / empty, edit `config.php`.
+5. Visit `http://localhost/portfolio/`.
 
-## React Compiler
+Admin: `http://localhost/portfolio/admin/login.php` → **admin / admin123** (change after first login).
 
-The React Compiler is not enabled on this template because of its impact on dev & build performances. To add it, see [this documentation](https://react.dev/learn/react-compiler/installation).
-
-## Expanding the ESLint configuration
-
-If you are developing a production application, we recommend using TypeScript with type-aware lint rules enabled. Check out the [TS template](https://github.com/vitejs/vite/tree/main/packages/create-vite/template-react-ts) for information on how to integrate TypeScript and [`typescript-eslint`](https://typescript-eslint.io) in your project.
+## Structure
+```
+config.php            DB connection, helpers, CSRF, auth
+includes/             shared header & footer
+*.php                 public pages
+admin/                login, dashboard, messages, manage (CRUD)
+assets/css, assets/js styling and interactivity
+sql/schema.sql        tables + seed data from your original content
+```
+Requires PHP 8.0+ (uses `str_contains`, `mysqli`, `mysqlnd`).
